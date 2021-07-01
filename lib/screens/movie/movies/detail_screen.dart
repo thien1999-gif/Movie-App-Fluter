@@ -7,13 +7,15 @@ import 'package:movieapp/bloc/get_movie_videos_bloc.dart';
 import 'package:movieapp/model/movie.dart';
 import 'package:movieapp/model/video.dart';
 import 'package:movieapp/model/video_response.dart';
+
 import 'package:movieapp/style/theme.dart' as Style;
-import 'package:movieapp/widgets/casts.dart';
-import 'package:movieapp/widgets/movie_info.dart';
-import 'package:movieapp/widgets/similar_movies.dart';
+
 import 'package:sliver_fab/sliver_fab.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+import 'casts.dart';
+import 'movies/movie_info.dart';
+import 'movies/similar_movies.dart';
 import 'video_player.dart';
 
 class MovieDetailScreen extends StatefulWidget {
@@ -130,7 +132,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                           SizedBox(
                             width: 5.0,
                           ),
-                          RatingBar(
+                          RatingBar.builder(
                             itemSize: 10.0,
                             initialRating: movie.rating / 2,
                             minRating: 1,

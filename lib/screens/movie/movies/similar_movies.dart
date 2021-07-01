@@ -8,24 +8,29 @@ import 'package:movieapp/style/theme.dart' as Style;
 
 class SimilarMovies extends StatefulWidget {
   final int id;
+
   SimilarMovies({Key key, @required this.id}) : super(key: key);
+
   @override
   _SimilarMoviesState createState() => _SimilarMoviesState(id);
 }
 
 class _SimilarMoviesState extends State<SimilarMovies> {
   final int id;
+
   _SimilarMoviesState(this.id);
+
   @override
   void initState() {
     super.initState();
     similarMoviesBloc..getSimilarMovies(id);
   }
+
   @override
- void dispose() {
-   similarMoviesBloc..drainStream();
-   super.dispose();
- }
+  void dispose() {
+    similarMoviesBloc..drainStream();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,30 +39,33 @@ class _SimilarMoviesState extends State<SimilarMovies> {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(left: 10.0, top: 20.0),
-          child: Text("SIMILAR MOVIES", style: TextStyle(
-            color: Style.Colors.titleColor,
-            fontWeight: FontWeight.w500,
-            fontSize: 12.0
-          ),),
+          child: Text(
+            "SIMILAR MOVIES",
+            style: TextStyle(
+                color: Style.Colors.titleColor,
+                fontWeight: FontWeight.w500,
+                fontSize: 12.0),
+          ),
         ),
         SizedBox(
           height: 5.0,
         ),
         StreamBuilder<MovieResponse>(
-        stream: similarMoviesBloc.subject.stream,
-        builder: (context, AsyncSnapshot<MovieResponse> snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data.error != null && snapshot.data.error.length > 0) {
-              return _buildErrorWidget(snapshot.data.error);
+          stream: similarMoviesBloc.subject.stream,
+          builder: (context, AsyncSnapshot<MovieResponse> snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data.error != null &&
+                  snapshot.data.error.length > 0) {
+                return _buildErrorWidget(snapshot.data.error);
+              }
+              return _buildHomeWidget(snapshot.data);
+            } else if (snapshot.hasError) {
+              return _buildErrorWidget(snapshot.error);
+            } else {
+              return _buildLoadingWidget();
             }
-            return _buildHomeWidget(snapshot.data);
-          } else if (snapshot.hasError) {
-            return _buildErrorWidget(snapshot.error);
-          } else {
-            return _buildLoadingWidget();
-          }
-        },
-      )
+          },
+        )
       ],
     );
   }
@@ -71,8 +79,7 @@ class _SimilarMoviesState extends State<SimilarMovies> {
           height: 25.0,
           width: 25.0,
           child: CircularProgressIndicator(
-            valueColor:
-                new AlwaysStoppedAnimation<Color>(Colors.white),
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
             strokeWidth: 4.0,
           ),
         )
@@ -95,7 +102,6 @@ class _SimilarMoviesState extends State<SimilarMovies> {
     if (movies.length == 0) {
       return Container(
         width: MediaQuery.of(context).size.width,
-
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -120,15 +126,9 @@ class _SimilarMoviesState extends State<SimilarMovies> {
           itemCount: movies.length,
           itemBuilder: (context, index) {
             return Padding(
-              padding: EdgeInsets.only(
-                top: 10.0,
-                bottom: 10.0,
-                right: 15.0
-              ),
+              padding: EdgeInsets.only(top: 10.0, bottom: 10.0, right: 15.0),
               child: GestureDetector(
-                onTap: () {
-                  
-                },
+                onTap: () {},
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -143,7 +143,9 @@ class _SimilarMoviesState extends State<SimilarMovies> {
                             shape: BoxShape.rectangle,
                             image: new DecorationImage(
                                 fit: BoxFit.cover,
-                                image: NetworkImage("https://image.tmdb.org/t/p/w200/" + movies[index].poster)),
+                                image: NetworkImage(
+                                    "https://image.tmdb.org/t/p/w200/" +
+                                        movies[index].poster)),
                           )),
                     ),
                     SizedBox(
@@ -155,7 +157,7 @@ class _SimilarMoviesState extends State<SimilarMovies> {
                         movies[index].title,
                         maxLines: 2,
                         style: TextStyle(
-                          height: 1.4,
+                            height: 1.4,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 11.0),
@@ -167,33 +169,34 @@ class _SimilarMoviesState extends State<SimilarMovies> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Text(movies[index].rating.toString(), style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 10.0,
-                          fontWeight: FontWeight.bold
-                        ),),
+                        Text(
+                          movies[index].rating.toString(),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 10.0,
+                              fontWeight: FontWeight.bold),
+                        ),
                         SizedBox(
                           width: 5.0,
                         ),
-                        RatingBar(
-                      itemSize: 8.0,
-   initialRating: movies[index].rating / 2,
-   minRating: 1,
-   direction: Axis.horizontal,
-   allowHalfRating: true,
-   itemCount: 5,
-   itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
-   itemBuilder: (context, _) => Icon(
-     EvaIcons.star,
-     color: Style.Colors.secondColor,
-   ),
-   onRatingUpdate: (rating) {
-     print(rating);
-   },
-)
+                        RatingBar.builder(
+                          itemSize: 8.0,
+                          initialRating: movies[index].rating / 2,
+                          minRating: 1,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
+                          itemBuilder: (context, _) => Icon(
+                            EvaIcons.star,
+                            color: Style.Colors.secondColor,
+                          ),
+                          onRatingUpdate: (rating) {
+                            print(rating);
+                          },
+                        )
                       ],
                     )
-                    
                   ],
                 ),
               ),

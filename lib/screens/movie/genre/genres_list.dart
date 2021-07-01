@@ -3,7 +3,9 @@ import 'package:movieapp/bloc/get_movies_byGenre_bloc.dart';
 import 'package:movieapp/model/genre.dart';
 import 'package:movieapp/style/theme.dart' as Style;
 
-import 'movies_by_genre.dart';
+import 'movies/movies_by_genre.dart';
+
+
 
 class GenresList extends StatefulWidget {
   final List<Genre> genres;

@@ -6,12 +6,12 @@ import 'package:movieapp/widgets/genres.dart';
 import 'package:movieapp/widgets/now_playing.dart';
 import 'package:movieapp/widgets/persons.dart';
 
-class HomeScreen extends StatefulWidget {
+class Movie_Screen extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _Movie_ScreenState createState() => _Movie_ScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _Movie_ScreenState extends State<Movie_Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,13 +19,18 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: Style.Colors.mainColor,
         centerTitle: true,
-        leading: Icon(EvaIcons.menu2Outline, color: Colors.white,),
+        leading: Icon(
+          EvaIcons.menu2Outline,
+          color: Colors.white,
+        ),
         title: Text("Discover"),
         actions: <Widget>[
           IconButton(
-            onPressed: () {},
-            icon: Icon(EvaIcons.searchOutline, color: Colors.white,)
-          )
+              onPressed: () {},
+              icon: Icon(
+                EvaIcons.searchOutline,
+                color: Colors.white,
+              ))
         ],
       ),
       body: ListView(
