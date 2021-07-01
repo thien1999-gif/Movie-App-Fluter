@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:movieapp/bloc/get_movies_bloc.dart';
+import 'package:movieapp/bloc/movie_bloc.dart';
 import 'package:movieapp/model/movie.dart';
 import 'package:movieapp/model/movie_response.dart';
 import 'package:movieapp/style/theme.dart' as Style;
+
+import 'detail_screen.dart';
 
 class BestMovies extends StatefulWidget {
   @override
@@ -27,7 +29,7 @@ class _BestMoviesState extends State<BestMovies> {
         Padding(
           padding: const EdgeInsets.only(left: 10.0, top: 20.0),
           child: Text(
-            "BEST POPULAR MOVIES",
+            "TOP MOVIES",
             style: TextStyle(
                 color: Style.Colors.titleColor,
                 fontWeight: FontWeight.w500,
@@ -115,26 +117,30 @@ class _BestMoviesState extends State<BestMovies> {
             return Padding(
               padding: EdgeInsets.only(top: 10.0, bottom: 10.0, right: 15.0),
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          MovieDetailScreen(movie: movies[index]),
+                    ),
+                  );
+                },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Hero(
-                      tag: movies[index].id,
-                      child: Container(
-                          width: 120.0,
-                          height: 180.0,
-                          decoration: new BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(2.0)),
-                            shape: BoxShape.rectangle,
-                            image: new DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(
-                                    "https://image.tmdb.org/t/p/w200/" +
-                                        movies[index].poster)),
-                          )),
-                    ),
+                    Container(
+                        width: 120.0,
+                        height: 180.0,
+                        decoration: new BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(2.0)),
+                          shape: BoxShape.rectangle,
+                          image: new DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(
+                                  "https://image.tmdb.org/t/p/w200/" +
+                                      movies[index].poster)),
+                        )),
                     SizedBox(
                       height: 10.0,
                     ),

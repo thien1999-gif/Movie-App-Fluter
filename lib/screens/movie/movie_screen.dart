@@ -1,10 +1,15 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+
+import 'package:movieapp/screens/movie/movies/popular_movie.dart';
+import 'package:movieapp/screens/movie/movies/poster_movie.dart';
+import 'package:movieapp/screens/movie/movies/upcoming_movie.dart';
 import 'package:movieapp/style/theme.dart' as Style;
-import 'package:movieapp/widgets/best_movies.dart';
-import 'package:movieapp/widgets/genres.dart';
-import 'package:movieapp/widgets/now_playing.dart';
-import 'package:movieapp/widgets/persons.dart';
+
+import 'movies/best_movies.dart';
+import 'genre/genres.dart';
+import 'others/now_playing.dart';
+import 'others/persons.dart';
 
 class Movie_Screen extends StatefulWidget {
   @override
@@ -16,29 +21,15 @@ class _Movie_ScreenState extends State<Movie_Screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Style.Colors.mainColor,
-      appBar: AppBar(
-        backgroundColor: Style.Colors.mainColor,
-        centerTitle: true,
-        leading: Icon(
-          EvaIcons.menu2Outline,
-          color: Colors.white,
-        ),
-        title: Text("Discover"),
-        actions: <Widget>[
-          IconButton(
-              onPressed: () {},
-              icon: Icon(
-                EvaIcons.searchOutline,
-                color: Colors.white,
-              ))
-        ],
-      ),
       body: ListView(
         children: <Widget>[
-          NowPlaying(),
+          PosterMovieScreen(),
           GenresScreen(),
-          PersonsList(),
           BestMovies(),
+          NowPlaying(),
+          MoviePopularScreen(),
+          UpcomingMovieScreen(),
+          PersonsList(),
         ],
       ),
     );

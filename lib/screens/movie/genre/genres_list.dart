@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:movieapp/bloc/get_movies_byGenre_bloc.dart';
+import 'package:movieapp/bloc/movie_bloc.dart';
 import 'package:movieapp/model/genre.dart';
 import 'package:movieapp/style/theme.dart' as Style;
 
-import 'movies/movies_by_genre.dart';
+import '../movies/movies_by_genre.dart';
 
 
 
