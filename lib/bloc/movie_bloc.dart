@@ -7,6 +7,7 @@ import 'package:movieapp/model/person_response.dart';
 import 'package:movieapp/model/review_response.dart';
 import 'package:movieapp/model/tv_detail_response.dart';
 import 'package:movieapp/model/tv_response.dart';
+import 'package:movieapp/model/tv_season_response.dart';
 import 'package:movieapp/model/video_response.dart';
 import 'package:movieapp/repository/repository.dart';
 import 'package:rxdart/rxdart.dart';
@@ -445,6 +446,77 @@ class TVCastBloc {
 
   BehaviorSubject<CastResponse> get subject => _subject;
 }
+
+class TVSeasonVideosBloc {
+  final MovieRepository _repository = MovieRepository();
+  final BehaviorSubject<VideoResponse> _subject =
+  BehaviorSubject<VideoResponse>();
+
+  getTVSeasonVideos(int id, int seasonNumber) async {
+    VideoResponse response = await _repository.getTVSeasonVideo(id, seasonNumber);
+    _subject.sink.add(response);
+  }
+
+  void drainStream() {
+    _subject.value = null;
+  }
+
+  @mustCallSuper
+  void dispose() async {
+    await _subject.drain();
+    _subject.close();
+  }
+
+  BehaviorSubject<VideoResponse> get subject => _subject;
+}
+
+class TVSeasonCastBloc {
+  final MovieRepository _repository = MovieRepository();
+  final BehaviorSubject<CastResponse> _subject =
+  BehaviorSubject<CastResponse>();
+
+  getTVSeasonCast(int id, int seasonNumber) async {
+    CastResponse response = await _repository.getTVSeasonCast(id, seasonNumber);
+    _subject.sink.add(response);
+  }
+
+  void drainStream() {
+    _subject.value = null;
+  }
+
+  @mustCallSuper
+  void dispose() async {
+    await _subject.drain();
+    _subject.close();
+  }
+
+  BehaviorSubject<CastResponse> get subject => _subject;
+}
+class TVSeasonDetailBloc {
+  final MovieRepository _repository = MovieRepository();
+  final BehaviorSubject<TVSeasonResponse> _subject =
+  BehaviorSubject<TVSeasonResponse>();
+
+  getTVSeasonDetail(int id, int seasonNumber) async {
+    TVSeasonResponse response = await _repository.getTVSeasonDetail(id, seasonNumber);
+    _subject.sink.add(response);
+  }
+
+  void drainStream() {
+    _subject.value = null;
+  }
+
+  @mustCallSuper
+  void dispose() async {
+    await _subject.drain();
+    _subject.close();
+  }
+
+  BehaviorSubject<TVSeasonResponse> get subject => _subject;
+}
+final tvSeasonDetail = TVSeasonDetailBloc();
+final tvSeasonCast = TVSeasonCastBloc();
+final tvSeasonVideo = TVSeasonVideosBloc();
 final tvCastBloc = TVCastBloc();
 
 final tvSimilarBloc = TVSimilarBloc();

@@ -4,6 +4,7 @@ import 'package:movieapp/model/tv_detail.dart';
 import 'package:movieapp/model/tv_detail_response.dart';
 import 'package:movieapp/screens/tv/others/cast_tv.dart';
 import 'package:movieapp/screens/tv/others/review_screen.dart';
+import 'package:movieapp/screens/tv/season/season.dart';
 import 'package:movieapp/screens/tv/tvs/tv_recomment_screen.dart';
 import 'package:movieapp/screens/tv/tvs/tv_similar_screen.dart';
 import 'package:movieapp/style/theme.dart' as Style;
@@ -265,11 +266,11 @@ class _TVInfoScreenState extends State<TVInfoScreen> {
                 padding: EdgeInsets.only(top: 10.0, bottom: 10.0, right: 15.0),
                 child: GestureDetector(
                   onTap: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) =>
-                    //             TVDetailScreen(tv: tvs[index])));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                TVSeasonScreen(id: detail.id, seasonNumber: detail.seasons[index].seasonNumber)));
                   },
                   child: Column(
                     children: [

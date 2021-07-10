@@ -7,6 +7,7 @@ import 'package:movieapp/model/person_response.dart';
 import 'package:movieapp/model/review_response.dart';
 import 'package:movieapp/model/tv_detail_response.dart';
 import 'package:movieapp/model/tv_response.dart';
+import 'package:movieapp/model/tv_season_response.dart';
 import 'package:movieapp/model/video_response.dart';
 
 class MovieRepository {
@@ -32,6 +33,43 @@ class MovieRepository {
   var tvlUrl = "$mainUrl/tv";
 
   //function for tv program
+
+  Future<CastResponse> getTVSeasonCast(int id, int seasonNumber) async {
+    var params = {"api_key": apiKey, "language": "en-US"};
+    try {
+      Response response = await _dio.get(tvlUrl + "/$id" + "/season" + "/$seasonNumber" + "/credits",
+          queryParameters: params);
+      return CastResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occured at tv season cast: $error stackTrace: $stacktrace");
+      return CastResponse.withError("$error");
+    }
+  }
+
+  Future<VideoResponse> getTVSeasonVideo(int id, int seasonNumber) async {
+    var params = {"api_key": apiKey, "language": "en-US"};
+    try {
+      Response response = await _dio.get(tvlUrl + "/$id" + "/season" + "/$seasonNumber" + "/videos",
+          queryParameters: params);
+      return VideoResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occured at tv season video: $error stackTrace: $stacktrace");
+      return VideoResponse.withError("$error");
+    }
+  }
+
+  Future<TVSeasonResponse> getTVSeasonDetail(int id, int seasonNumber) async {
+    var params = {"api_key": apiKey, "language": "en-US"};
+    try {
+      Response response = await _dio.get(tvlUrl + "/$id" + "/season" + "/$seasonNumber",
+          queryParameters: params);
+      return TVSeasonResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occured at tv season detail: $error stackTrace: $stacktrace");
+      return TVSeasonResponse.withError("$error");
+    }
+  }
+
   Future<CastResponse> getCastTV(int id) async {
     var params = {"api_key": apiKey, "language": "en-US"};
     try {
